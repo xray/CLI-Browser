@@ -42,3 +42,46 @@ class LinkGenerator
     end
   end
 end
+
+
+Result = Struct.new(:title, :url, :description)
+
+class Search
+  attr_reader :provider
+
+  def initialize(provider)
+    @provider = provider
+  end
+
+  def results(term)
+    provider.results(term)
+  end
+end
+
+class DuckDuckGoSearchProvider
+  attr_reader :http
+  attr_reader :parser
+
+  def initialize(http, parser)
+    @http = http
+    @parser = parser
+  end
+
+  def results(term)
+    body = http.get(url(term))
+    parser.parse(body)
+  end
+
+  def url(term)
+    query_encoded = URI.encode_www_form([['q', term]])
+    URI("https://duckduckgo.com/html/?#{query_encoded}")
+  end
+end
+
+require 'nokogiri'
+
+class DuckDuckGoHTMLParser
+  def parse(body)
+    Nokogiri::Doc(body)
+  end
+end
