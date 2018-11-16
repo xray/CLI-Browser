@@ -1,3 +1,6 @@
 language: ruby
+env:
+  - CODECOV_TOKEN=aa614752-a4b2-4b1f-9e43-4e6bb7042c01
+
 rvm:
  - 2.5.1
