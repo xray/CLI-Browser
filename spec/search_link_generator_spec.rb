@@ -1,8 +1,9 @@
 require 'search_link_generator'
 
-RSpec.describe LinkGenerator, 'when the method' do
-  lg = LinkGenerator.new
-  context '"get_link" is given' do
+RSpec.describe LinkGenerator do
+  let(:lg) { LinkGenerator.new }
+
+  describe 'get_link' do
     it 'a query it returns a Link object with a link value of a corresponding'\
        'DuckDuckGo search URL' do
       query = 'basic query'
@@ -18,7 +19,7 @@ RSpec.describe LinkGenerator, 'when the method' do
     end
   end
 
-  context '"next_page" is given a Link object' do
+  describe 'next_page' do
     it 'with a page value of 0 it returns a copy with an updated page value of'\
        ' 2 and updated corresponding link value' do
       query = 'basic query'
@@ -37,7 +38,7 @@ RSpec.describe LinkGenerator, 'when the method' do
     end
   end
 
-  context '"determine_page_number_value" is given a page number of' do
+  describe 'determine_page_number_value' do
     it '1 it returns false' do
       page_number = 1
       expect(lg.determine_page_number_value(page_number)).to eq false
@@ -54,7 +55,7 @@ RSpec.describe LinkGenerator, 'when the method' do
     end
   end
 
-  context '"previous_page" is given a Link object' do
+  describe 'previous_page' do
     it 'with a page value of greater than 1 it returns a copy with an updated '\
        'page value of the current value minus 1 and updated corresponding '\
        'link value' do

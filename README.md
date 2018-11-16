@@ -1,4 +1,6 @@
-# CLI Browser (Ruby) - v0.1.0
+# CLI Browser (Ruby) - v0.5.0
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+
 Ruby Version 2.5.1
 - [x] Tests Passing
 
@@ -10,7 +12,7 @@ Ruby Version 2.5.1
 * [Rbenv](https://github.com/rbenv/rbenv) ([Instalation Tutorial](https://medium.com/@gratefulcheddar/installing-rbenv-and-updating-to-the-newest-ruby-version-22c465063450) by @gratefulcheddar)
 
 ## Usage
-How to run the browser: 
+How to run the browser:
 * Run `bundle install`
 * Run `ruby browser.rb`
 
