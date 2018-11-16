@@ -69,37 +69,3 @@ RSpec.describe LinkGenerator do
     end
   end
 end
-
-RSpec.describe Search do
-  it 'returns results' do
-    provider = double(results: [])
-    search = Search.new(provider)
-
-    expect(search.results('apples')).to eq([])
-  end
-end
-
-RSpec.describe DuckDuckGoSearchProvider do
-  let(:http) {
-    double(get: File.read('spec/fixtures/apples.html'))
-  }
-
-  let(:provider) {
-    parser = double(parse: [])
-    DuckDuckGoSearchProvider.new(http, parser)
-  }
-
-  it 'requests the search url' do
-    expected_url = URI('https://duckduckgo.com/html/?q=apples')
-
-    expect(http).to receive(:get).with(expected_url)
-
-    provider.results('apples')
-  end
-
-  it 'parses response body into results' do
-    results = provider.results('apples')
-
-    expect(results.first.title).to eq('Apple - Wikipedia')
-  end
-end
