@@ -8,6 +8,7 @@ gem 'nokogiri'
 gem 'solargraph'
 
 group :dev, :test do
+  gem 'codecov', require: false
   gem 'rake', require: false
   gem 'rubocop', require: false
 end
