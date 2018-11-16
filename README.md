@@ -1,7 +1,7 @@
 # CLI Browser (Ruby) - v0.5.0
 [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
-Ruby Version 2.5.1
+Ruby Version 2.5.2
 - [x] Tests Passing
 
 ## Requirements
