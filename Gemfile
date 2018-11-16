@@ -8,11 +8,12 @@ gem 'nokogiri'
 gem 'solargraph'
 
 group :dev, :test do
+  gem 'rake', require: false
   gem 'rubocop', require: false
 end
 
 group :test do
+  gem 'guard-rspec', require: false
   gem 'rspec'
   gem 'vcr'
-  gem 'guard-rspec', require: false
 end
