@@ -1,5 +1,5 @@
 require 'uri'
-require 'link'
+require 'browser/link'
 
 # Generates DuckDuckGo search links based on a serach query
 class LinkGenerator

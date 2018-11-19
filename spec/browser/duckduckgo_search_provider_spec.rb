@@ -1,6 +1,5 @@
-require 'duckduckgo_search_provider'
-require 'duckduckgo_html_parser'
-require 'net/http'
+require 'browser/duckduckgo_search_provider'
+require 'browser/duckduckgo_html_parser'
 require 'uri'
 
 RSpec.describe DuckDuckGoSearchProvider do

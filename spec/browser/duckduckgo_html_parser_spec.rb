@@ -1,4 +1,4 @@
-require 'duckduckgo_html_parser'
+require 'browser/duckduckgo_html_parser'
 
 RSpec.describe DuckDuckGoHTMLParser do
   let(:ddg_parser) { DuckDuckGoHTMLParser.new }

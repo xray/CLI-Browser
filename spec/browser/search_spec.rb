@@ -1,4 +1,4 @@
-require 'search'
+require 'browser/search'
 
 RSpec.describe Search do
   it 'returns an array of Results' do

@@ -1,4 +1,4 @@
-require 'search_link_generator'
+require 'browser/search_link_generator'
 
 RSpec.describe LinkGenerator do
   let(:lg) { LinkGenerator.new }
