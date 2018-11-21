@@ -24,8 +24,10 @@ class ConsoleView
       @out.puts "   ┃ \e[4m#{result.url}\e[0m"
       @out.puts ''
     end
+    results
   end
 
+  #TODO: make this private and test through show_results
   def truncate(description, max_length=120)
     adjusted_length = max_length - 3
     if description.length > max_length
@@ -33,5 +35,15 @@ class ConsoleView
     else
       description
     end
+  end
+
+  def get_result(results_count)
+    @out.print "Choose a result (1 - #{results_count.to_s}): "
+    user_choice = @in.gets
+    user_choice.to_i - 1
+  end
+
+  def no_results(query)
+    @out.puts "'#{query}' returned no results..."
   end
 end

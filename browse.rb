@@ -9,6 +9,9 @@ browser = Browser.new(
       HTTPClient.new(),
       DuckDuckGoHTMLParser.new()
     )
+  ),
+  PageProvider.new(
+    HTTPClient.new()
   )
 )
 

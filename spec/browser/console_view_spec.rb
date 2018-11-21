@@ -1,6 +1,8 @@
 require 'browser/console_view'
 require 'stringio'
 
+
+# Refactor setup of doubles with let statements (see browser_spec)
 RSpec.describe ConsoleView do
   describe 'get_search' do
     it 'shows the user a message' do
@@ -71,5 +73,39 @@ RSpec.describe ConsoleView do
         )
       end
     end
+
+    describe 'get_result' do
+      it 'shows the user a message' do
+        input = StringIO.new
+        out = StringIO.new
+        view = ConsoleView.new(input, out)
+
+        view.get_result(10)
+
+        expect(out.string).to eq('Choose a result (1 - 10): ')
+      end
+
+      it 'returns the correct result value' do
+        input = StringIO.new('4')
+        out = StringIO.new
+        view = ConsoleView.new(input, out)
+
+        result = view.get_result(10)
+
+        expect(result).to eq(3)
+      end
+    end
+
+    describe 'no_results' do
+      it 'shows a no results message' do
+        input = StringIO.new('4')
+        out = StringIO.new
+        view = ConsoleView.new(input, out)
+        query = 'apples'
+        view.no_results(query)
+        expect(out.string).to eq "'#{query}' returned no results...\n"
+      end
+    end
+
   end
 end
