@@ -33,7 +33,11 @@ RSpec.describe ConsoleView do
       view = ConsoleView.new(input, out)
       results = [
         Result.new('Result One', 'Description 1', 'https://linkone.com'),
-        Result.new('Result Two', 'Description 2', 'https://linktwo.com')
+        Result.new('Result Two',
+                   'Lorem ipsum dolor sit amet, consectetur adipiscing ' \
+                   'elit. Mauris non lobortis nisi. Vivamus luctus cursus ' \
+                   'mauris, eget fringilla elit tempor.',
+                   'https://linktwo.com')
       ]
 
       view.show_results(results)
@@ -45,33 +49,11 @@ RSpec.describe ConsoleView do
         "   ┃ \e[4mhttps://linkone.com\e[0m\n" \
         "\n" \
         "   ┃ \033[1mResult Two\033[0m\n" \
-        " 2 ┃ Description 2\n" \
+        ' 2 ┃ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris' \
+        " non lobortis nisi. Vivamus luctus cursus mauris, eget...\n" \
         "   ┃ \e[4mhttps://linktwo.com\e[0m\n" \
         "\n"
       )
-    end
-
-    describe 'truncate' do
-      it 'by default, shortens input string to 120 characters' do
-        input = StringIO.new('')
-        out = StringIO.new
-        test_string = 'Lorem ipsum dolor sit amet, consectetur adipiscing ' \
-                      'elit. Mauris non lobortis nisi. Vivamus luctus cursus ' \
-                      'mauris, eget fringilla elit tempor.'
-        expect(ConsoleView.new(input, out).truncate(test_string)).to eq(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' \
-          'Mauris non lobortis nisi. Vivamus luctus cursus mauris, eget...'
-        )
-      end
-
-      it 'by default, does not change strings under 120 characters' do
-        input = StringIO.new('')
-        out = StringIO.new
-        test_string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-        expect(ConsoleView.new(input, out).truncate(test_string)).to eq(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-        )
-      end
     end
 
     describe 'get_result' do
@@ -106,6 +88,5 @@ RSpec.describe ConsoleView do
         expect(out.string).to eq "'#{query}' returned no results...\n"
       end
     end
-
   end
 end

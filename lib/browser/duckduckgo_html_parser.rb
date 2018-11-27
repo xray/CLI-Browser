@@ -11,7 +11,7 @@ class DuckDuckGoHTMLParser
       link = raw_result.css('a.result__a')[0]
       res_title = link.content.sub("\u200E", '')
       res_description = raw_result.css('a.result__snippet')[0].content
-      res_url = CGI.unescape(link['href']).gsub(%r{\/l\/\?kh=-1&uddg=}, '')
+      res_url = URI(CGI.unescape(link['href']).gsub(%r{\/l\/\?kh=-1&uddg=}, ''))
       results_list.push(Result.new(res_title, res_description, res_url))
     end
     results_list

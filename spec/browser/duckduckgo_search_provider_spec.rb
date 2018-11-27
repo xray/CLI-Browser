@@ -38,7 +38,7 @@ RSpec.describe DuckDuckGoSearchProvider do
 
     expect(results.first.title).to eq('Apple - Wikipedia')
     expect(results.first.description).to eq expected_description
-    expect(results.first.url).to eq 'https://en.wikipedia.org/wiki/Apple'
+    expect(results.first.url).to eq URI('https://en.wikipedia.org/wiki/Apple')
     expect(results.length).to eq 29
   end
 end

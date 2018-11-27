@@ -1,8 +1,7 @@
 require 'nokogiri'
+require 'uri'
 
-WebPage = Struct.new(:title, :body, :links)
-HyperLink = Struct.new(:url, :text)
-WebContent = Struct.new(:type, :text)
+PageData = Struct.new(:text, :links)
 
 class PageProvider
   def initialize(http)
@@ -10,26 +9,33 @@ class PageProvider
   end
 
   def get_page(url)
-    html = @http.get(url)
-    doc = Nokogiri::HTML(html)
-    page_title = ''
-    page_contents = []
-    doc.css('p, span, h1, h2, h3, h4, h5, h6, a, title').each do |item|
-      if item.name == 'title'
-        page_title = item.content
-      elsif text_item.name == 'a'
-        adjusted_url = text_item['href'].gsub(%r{\/l\/\?kh=-1&uddg=}, '').to_s
-        unless adjusted_url =~ %r{(http|https):\/\/.{1,}\.[a-z]{2,10}\/}
-          adjusted_url = web_url.to_s.chop + adjusted_url
+    res_data = @http.get(url)
+    doc = Nokogiri::HTML(res_data)
+    page_text = []
+    page_title = "Title: \"#{doc.css('title').first.content}\"\n"
+    page_text.push(page_title)
+    link_list = []
+    link_count = 0
+    tags = %w(h1 h2 h3 h4 h5 h6 span p a)
+    doc.css(tags.join(', ')).each do |text_snippet|
+      if text_snippet.name == 'a'
+        if text_snippet['href'] =~ %r{((http|https):\/\/.*\..{3,}|www.*\..{3,6}\/)}
+          link_list << URI(text_snippet['href'])
+          link_count += 1
+          page_text << "#{link_count}) Link: \e[4m#{text_snippet.content}\e[0m (#{text_snippet['href']})\n"
+        elsif text_snippet['href'] =~ %r{\/.{1,}}
+          root_url = url.to_s.match(%r{((http|https):\/\/.*\..{2,8})(\/)}).captures.first
+          puts root_url + text_snippet['href']
+          link_list << URI(root_url + text_snippet['href'])
+          link_count += 1
+          page_text << "#{link_count}) Link: \e[4m#{text_snippet.content}\e[0m (#{text_snippet['href']})\n"
+        else
+          page_text << "INCOMPATIBLE LINK"
         end
-        link_counter += 1
-
-        page_contents.append(HyperLink.new(adjusted_url, text_item.content))
       else
-        unless text_item.content.strip == ''
-          page_contents.append(WebContent.new(text_item.name, text_item.content.strip))
-        end
+        page_text << "#{text_snippet.name} | #{text_snippet.content}\n"
       end
     end
+    PageData.new(page_text.join(''), link_list)
   end
 end

@@ -1,4 +1,5 @@
 require 'browser/duckduckgo_html_parser'
+require 'uri'
 
 RSpec.describe DuckDuckGoHTMLParser do
   let(:ddg_parser) { DuckDuckGoHTMLParser.new }
@@ -20,7 +21,7 @@ RSpec.describe DuckDuckGoHTMLParser do
                              ' North America by European colonists.'
       expect(results.first.title).to eq 'Apple - Wikipedia'
       expect(results.first.description).to eq expected_description
-      expect(results.first.url).to eq 'https://en.wikipedia.org/wiki/Apple'
+      expect(results.first.url).to eq URI('https://en.wikipedia.org/wiki/Apple')
       expect(results.length).to eq 29
     end
   end
