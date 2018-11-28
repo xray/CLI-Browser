@@ -1,5 +1,4 @@
-require 'browser/Page'
+require 'browser/page'
 
 RSpec.describe Page do
-  
 end

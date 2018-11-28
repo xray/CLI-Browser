@@ -1,5 +1,6 @@
 require 'browser/console_view'
 require 'stringio'
+require 'uri'
 
 
 # Refactor setup of doubles with let statements (see browser_spec)
@@ -86,6 +87,23 @@ RSpec.describe ConsoleView do
         query = 'apples'
         view.no_results(query)
         expect(out.string).to eq "'#{query}' returned no results...\n"
+      end
+    end
+
+    describe 'show_page' do
+      it 'takes in PageData and displays the page' do
+        input = StringIO.new('test page')
+        out = StringIO.new
+        view = ConsoleView.new(input, out)
+        display_text = "Title: \"Fake Page\"\n" \
+                       "h1 | This is a h1 with fake data\n" \
+                       "p | A p that contains an interesting paragraph of information pertaining to the page\n" \
+                       "span | a short little piece of inline info\n" \
+                       "1) Link: \e[4mA link to Google\e[0m (https://google.com)\n"
+        fake_data = PageData.new(display_text, [URI('https://google.com')])
+
+        view.show_page(fake_data)
+        expect(out.string).to eq(display_text)
       end
     end
   end

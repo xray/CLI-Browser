@@ -25,12 +25,12 @@ class PageProvider
           page_text << "#{link_count}) Link: \e[4m#{text_snippet.content}\e[0m (#{text_snippet['href']})\n"
         elsif text_snippet['href'] =~ %r{\/.{1,}}
           root_url = url.to_s.match(%r{((http|https):\/\/.*\..{2,8})(\/)}).captures.first
-          puts root_url + text_snippet['href']
+          link_string = root_url + text_snippet['href']
           link_list << URI(root_url + text_snippet['href'])
           link_count += 1
-          page_text << "#{link_count}) Link: \e[4m#{text_snippet.content}\e[0m (#{text_snippet['href']})\n"
+          page_text << "#{link_count}) Link: \e[4m#{text_snippet.content}\e[0m (#{link_string})\n"
         else
-          page_text << "INCOMPATIBLE LINK"
+          page_text << "INCOMPATIBLE LINK\n"
         end
       else
         page_text << "#{text_snippet.name} | #{text_snippet.content}\n"

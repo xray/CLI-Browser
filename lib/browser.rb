@@ -21,8 +21,8 @@ class Browser
       @view.show_results(results)
       chosen_result_index = @view.get_result(results.length)
       chosen_result = results[chosen_result_index]
-      @page_provider.get_page(chosen_result.url)
-
+      page = @page_provider.get_page(chosen_result.url)
+      @view.show_page(page)
     end
   end
 end

@@ -1,4 +1,5 @@
 require 'browser'
+require 'uri'
 
 RSpec.describe Browser do
   let(:view) {
@@ -6,7 +7,8 @@ RSpec.describe Browser do
       get_search: 'apples',
       show_results: nil,
       get_result: 0,
-      no_results: nil
+      no_results: nil,
+      show_page: nil
     )
   }
   let(:search) {
@@ -88,7 +90,8 @@ RSpec.describe Browser do
     view = double(
       get_search: 'apples',
       show_results: nil,
-      get_result: 1
+      get_result: 1,
+      show_page: nil
     )
     results = [
       Result.new(
@@ -129,8 +132,46 @@ RSpec.describe Browser do
 
       browser.start
     end
+  end
 
-    it '' do
+  context 'display a page' do
+    it 'displays the given page' do
+      results = [
+        Result.new(
+          'Fake result 1',
+          'Fake description 1',
+          'https://fakeurlone.xyz'
+        ),
+        Result.new(
+          'Fake result 2',
+          'Fake description 2',
+          'https://fakeurltwo.xyz'
+        ),
+        Result.new(
+          'Fake result 3',
+          'Fake description 3',
+          'https://fakeurlthree.xyz'
+        ),
+        Result.new(
+          'Fake result 4',
+          'Fake description 4',
+          'https://fakeurlfour.xyz'
+        )
+      ]
+      search = double(results: results)
+
+      display_text = "Title: \"Fake Page\"\n" \
+                       "h1 | This is a h1 with fake data\n" \
+                       "p | A p that contains an interesting paragraph of information pertaining to the page\n" \
+                       "span | a short little piece of inline info\n" \
+                       "1) Link: \e[4mA link to Google\e[0m (https://google.com)\n"
+      page_data = PageData.new(display_text, [URI('https://google.com')])
+      page_provider = double(get_page: page_data)
+      browser = build_browser(page_provider: page_provider, search: search)
+
+      expect(view).to receive(:show_page).with(page_data)
+
+      browser.start
     end
   end
 end

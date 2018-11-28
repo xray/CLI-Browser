@@ -37,6 +37,10 @@ class ConsoleView
     @out.puts "'#{query}' returned no results..."
   end
 
+  def show_page(page_data)
+    @out.puts page_data.text
+  end
+
   private
 
   def truncate(description, max_length=120)
