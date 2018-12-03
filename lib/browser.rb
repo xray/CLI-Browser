@@ -15,14 +15,26 @@ class Browser
   def start
     query = @view.get_search
     results = @search.results(query)
+
     if results.empty?
       @view.no_results(query)
     else
       @view.show_results(results)
-      chosen_result_index = @view.get_result(results.length)
-      chosen_result = results[chosen_result_index]
-      page = @page_provider.get_page(chosen_result.url)
+      recurser(results)
+      # chosen_result_index = @view.get_option(results)
+      # chosen_result = results[chosen_result_index]
+      # page = @page_provider.get_page(chosen_result.url)
+      # @view.show_page(page)
+    end
+  end
+
+  def recurser(options)
+    unless options == nil
+      chosen_option_index = @view.get_option(options)
+      chosen_option = options[chosen_option_index]
+      page = @page_provider.get_page(chosen_option.url)
       @view.show_page(page)
+      recurser(page.links)
     end
   end
 end

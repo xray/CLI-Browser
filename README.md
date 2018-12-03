@@ -1,6 +1,8 @@
 # CLI Browser (Ruby) - v0.5.0
 [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+[![Build Status](https://travis-ci.com/xray/CLI-Browser.svg?token=BerRcQpeBfeLxpdsLWR4&branch=itr1)](https://travis-ci.com/xray/CLI-Browser)
 [![codecov](https://codecov.io/gh/xray/CLI-Browser/branch/master/graph/badge.svg?token=EJEBYP7SrI)](https://codecov.io/gh/xray/CLI-Browser)
+
 
 
 Ruby Version 2.5.2

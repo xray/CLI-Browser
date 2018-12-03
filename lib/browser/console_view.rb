@@ -15,7 +15,7 @@ class ConsoleView
     results.each do |result|
       results_number += 1
       truncated_description = truncate(result.description)
-      @out.puts "   ┃ \033[1m#{result.title}\033[0m"
+      @out.puts "   ┃ \e[1m#{result.title}\e[0m"
       if results_number < 10
         @out.puts " #{results_number} ┃ #{truncated_description}"
       else
@@ -27,8 +27,9 @@ class ConsoleView
     results
   end
 
-  def get_result(results_count)
-    @out.print "Choose a result (1 - #{results_count.to_s}): "
+  def get_option(results)
+    results_count = results.length
+    @out.print "Choose an option (1 - #{results_count.to_s}): "
     user_choice = @in.gets
     user_choice.to_i - 1
   end

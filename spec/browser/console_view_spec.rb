@@ -5,6 +5,31 @@ require 'uri'
 
 # Refactor setup of doubles with let statements (see browser_spec)
 RSpec.describe ConsoleView do
+  let(:results) {
+    [
+      Result.new(
+        'Fake result 1',
+        'Fake description 1',
+        'https://fakeurlone.xyz'
+      ),
+      Result.new(
+        'Fake result 2',
+        'Fake description 2',
+        'https://fakeurltwo.xyz'
+      ),
+      Result.new(
+        'Fake result 3',
+        'Fake description 3',
+        'https://fakeurlthree.xyz'
+      ),
+      Result.new(
+        'Fake result 4',
+        'Fake description 4',
+        'https://fakeurlfour.xyz'
+      )
+    ]
+  }
+
   describe 'get_search' do
     it 'shows the user a message' do
       input = StringIO.new
@@ -57,15 +82,15 @@ RSpec.describe ConsoleView do
       )
     end
 
-    describe 'get_result' do
+    describe 'get_option' do
       it 'shows the user a message' do
         input = StringIO.new
         out = StringIO.new
         view = ConsoleView.new(input, out)
 
-        view.get_result(10)
+        view.get_option(results)
 
-        expect(out.string).to eq('Choose a result (1 - 10): ')
+        expect(out.string).to eq('Choose an option (1 - 4): ')
       end
 
       it 'returns the correct result value' do
@@ -73,7 +98,7 @@ RSpec.describe ConsoleView do
         out = StringIO.new
         view = ConsoleView.new(input, out)
 
-        result = view.get_result(10)
+        result = view.get_option(results)
 
         expect(result).to eq(3)
       end

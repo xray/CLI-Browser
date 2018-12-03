@@ -19,7 +19,7 @@ RSpec.describe PageProvider do
 
     it 'takes in a URL and returns an object cotaining the page text and list of links' do
       url = URI('https://myfakesite.com/home.html')
-      link_list = [URI('https://google.com'), URI('https://bing.com')]
+      link_list = [Result.new(nil, nil, URI('https://google.com')), Result.new(nil, nil, URI('https://bing.com'))]
 
       test_text = "Title: \"Fake Page\"\n" \
       "h1 | This is a h1 with fake data\n" \
