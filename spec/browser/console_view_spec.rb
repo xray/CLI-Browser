@@ -131,5 +131,15 @@ RSpec.describe ConsoleView do
         expect(out.string).to eq(display_text)
       end
     end
+
+    describe 'should_restart' do
+      it 'takes in PageData and returns if the app should restart' do
+        input = StringIO.new
+        out = StringIO.new
+        view = ConsoleView.new(input, out)
+        fake_data = PageData.new('Hello World', [])
+        expect(view.should_restart?(fake_data)).to eq false
+      end
+    end
   end
 end

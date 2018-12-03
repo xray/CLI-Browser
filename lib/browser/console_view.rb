@@ -42,6 +42,10 @@ class ConsoleView
     @out.puts page_data.text
   end
 
+  def should_restart?(page_data)
+    !page_data.links.empty?
+  end
+
   private
 
   def truncate(description, max_length=120)

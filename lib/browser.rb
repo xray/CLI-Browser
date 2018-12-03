@@ -21,10 +21,6 @@ class Browser
     else
       @view.show_results(results)
       recurser(results)
-      # chosen_result_index = @view.get_option(results)
-      # chosen_result = results[chosen_result_index]
-      # page = @page_provider.get_page(chosen_result.url)
-      # @view.show_page(page)
     end
   end
 
@@ -34,7 +30,9 @@ class Browser
       chosen_option = options[chosen_option_index]
       page = @page_provider.get_page(chosen_option.url)
       @view.show_page(page)
-      recurser(page.links)
+      if @view.should_restart?(page)
+        recurser(page.links)
+      end
     end
   end
 end

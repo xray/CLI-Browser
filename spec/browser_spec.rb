@@ -8,7 +8,8 @@ RSpec.describe Browser do
       show_results: nil,
       get_option: 0,
       no_results: nil,
-      show_page: nil
+      show_page: nil,
+      should_restart?: false
     )
   }
 
@@ -96,7 +97,8 @@ RSpec.describe Browser do
       get_search: 'apples',
       show_results: nil,
       get_option: 1,
-      show_page: nil
+      show_page: nil,
+      should_restart?: false
     )
     search = double(results: results)
     browser = build_browser(view: view, search: search)
