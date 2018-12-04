@@ -138,7 +138,7 @@ RSpec.describe ConsoleView do
         out = StringIO.new
         view = ConsoleView.new(input, out)
         fake_data = PageData.new('Hello World', [])
-        expect(view.should_restart?(fake_data)).to eq false
+        expect(view.has_links?(fake_data)).to eq false
       end
     end
   end

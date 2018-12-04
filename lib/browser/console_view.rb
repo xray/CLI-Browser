@@ -42,7 +42,7 @@ class ConsoleView
     @out.puts page_data.text
   end
 
-  def should_restart?(page_data)
+  def has_links?(page_data)
     !page_data.links.empty?
   end
 

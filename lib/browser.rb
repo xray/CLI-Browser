@@ -20,19 +20,18 @@ class Browser
       @view.no_results(query)
     else
       @view.show_results(results)
-      recurser(results)
+      show_page_tree(results)
     end
   end
 
-  def recurser(options)
-    unless options == nil
-      chosen_option_index = @view.get_option(options)
-      chosen_option = options[chosen_option_index]
-      page = @page_provider.get_page(chosen_option.url)
-      @view.show_page(page)
-      if @view.should_restart?(page)
-        recurser(page.links)
-      end
+  def show_page_tree(options)
+    chosen_option_index = @view.get_option(options)
+    chosen_option = options[chosen_option_index]
+    page = @page_provider.get_page(chosen_option.url)
+    @view.show_page(page)
+
+    if @view.has_links?(page)
+      show_page_tree(page.links)
     end
   end
 end

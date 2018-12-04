@@ -9,7 +9,7 @@ RSpec.describe Browser do
       get_option: 0,
       no_results: nil,
       show_page: nil,
-      should_restart?: false
+      has_links?: false
     )
   }
 
@@ -98,7 +98,7 @@ RSpec.describe Browser do
       show_results: nil,
       get_option: 1,
       show_page: nil,
-      should_restart?: false
+      has_links?: false
     )
     search = double(results: results)
     browser = build_browser(view: view, search: search)

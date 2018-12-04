@@ -1,5 +1,5 @@
-class Page
-  def initialize()
-    
-  end
-end
+# class Page
+#   def initialize(type, content)
+#
+#   end
+# end

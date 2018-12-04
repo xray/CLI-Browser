@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'cgi'
 
-Result = Struct.new(:title, :description, :url )
+Result = Struct.new(:title, :description, :url)
 
 class DuckDuckGoHTMLParser
   def parse(body)
