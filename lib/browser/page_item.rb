@@ -1,4 +1,4 @@
-class WebItem
+class PageItem
   attr_reader :content
 
   def initialize(content)
@@ -6,7 +6,7 @@ class WebItem
   end
 end
 
-class Link < WebItem
+class Link < PageItem
   attr_reader :url
 
   def initialize(content, url)
@@ -24,7 +24,7 @@ class SearchResult < Link
   end
 end
 
-class PageContent < WebItem
+class PageContent < PageItem
   attr_reader :type
 
   def initialize(content, type)

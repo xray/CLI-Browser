@@ -1,10 +1,10 @@
-require 'browser/web_item'
+require 'browser/page_item'
 
-RSpec.describe WebItem do
+RSpec.describe PageItem do
   it 'creates a web item with content' do
     content = 'Fake Content'
 
-    test_web_item = WebItem.new(content)
+    test_web_item = PageItem.new(content)
 
     expect(test_web_item.content).to eq content
   end
