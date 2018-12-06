@@ -1,22 +1,16 @@
 require 'browser/generic_html_parser'
 
 class WebPageProvider
-  Page = Struct.new(:items)
-
-  def initialize(http, parser = GenericHTMLParser)
-    @http = http
-    @parser = parser.new
+  def initialize(dependencies = {})
+    @http = dependencies.fetch(:http, HTTPClient.new)
+    @parser = dependencies.fetch(:parser, GenericHTMLParser.new)
+    @page = Struct.new(:items)
   end
 
   def get(url)
-    html = make_request(url)
-    page_items = @parser.parse(html, url)
-    Page.new(page_items)
-  end
-
-  private
-
-  def make_request(request_url)
-    @http.get(request_url)
+    html = @http.get(url)
+    response = {html: html, req_url: url}
+    page_items = @parser.parse(response)
+    @page.new(page_items)
   end
 end

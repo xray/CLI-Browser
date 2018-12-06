@@ -12,7 +12,9 @@ class GenericHTMLParser
     @page_content = page_item_types.fetch(:page_content, PageContent)
   end
 
-  def parse(html, url)
+  def parse(response)
+    url = response.fetch(:req_url, 'NO URL PROVIDED')
+    html = response.fetch(:html, 'NO HTML PROVIDED')
     doc = Nokogiri::HTML(html)
     page_title = @page_content.new(doc.css('title').first.content, 'title')
     page_items = [page_title]

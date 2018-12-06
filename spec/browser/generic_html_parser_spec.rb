@@ -1,9 +1,11 @@
+require 'uri'
 require 'browser/generic_html_parser'
 
 RSpec.describe GenericHTMLParser do
   let(:parser) { GenericHTMLParser.new }
   let(:html) { File.read('read_test.html') }
-  let(:parsed_page) { parser.parse(html)}
+  let(:response) { { html: html, req_url: URI('http://fakeurl.com') } }
+  let(:parsed_page) { parser.parse(response) }
 
   describe 'parse' do
     it 'returns a PageContent item' do
